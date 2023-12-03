@@ -866,8 +866,9 @@
   // #define INVERT_Z2_VS_Z_DIR        // Z2 direction signal is the opposite of Z
 
   #if DISABLED(KNUTWURST_ONE_Z_ENDSTOP)
-    #define Z_MULTI_ENDSTOPS          // Other Z axes have their own endstops
+    // #define Z_MULTI_ENDSTOPS          // Other Z axes have their own endstops
   #endif
+
   #if ENABLED(Z_MULTI_ENDSTOPS)
     #define Z2_USE_ENDSTOP   _XMAX_   // Z2 endstop board plug. Don't forget to enable USE_*_PLUG.
     #define Z2_ENDSTOP_ADJUSTMENT 0   // Z2 offset relative to Z endstop
@@ -1002,7 +1003,10 @@
  * Z Steppers Auto-Alignment
  * Add the G34 command to align multiple Z steppers using a bed probe.
  */
-// #define Z_STEPPER_AUTO_ALIGN
+#if ENABLED(KNUTWURST_PROBE)
+  #define Z_STEPPER_AUTO_ALIGN
+#endif
+
 #if ENABLED(Z_STEPPER_AUTO_ALIGN)
   /**
    * Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
@@ -1010,7 +1014,7 @@
    * If not defined, probe limits will be used.
    * Override with 'M422 S<index> X<pos> Y<pos>'.
    */
-  // #define Z_STEPPER_ALIGN_XY { {  10, 190 }, { 100,  10 }, { 190, 190 } }
+  #define Z_STEPPER_ALIGN_XY { { 30, 60 }, { 190, 60 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1053,7 +1057,7 @@
 
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE              5    // (%) Maximum incline that G34 will handle
-  #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
+  #define Z_STEPPER_ALIGN_ITERATIONS 6    // Number of iterations to apply during alignment
   #define Z_STEPPER_ALIGN_ACC        0.02 // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
@@ -2081,7 +2085,7 @@
 
   // #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
-  #if ENABLED(KNUTWURST_BLTOUCH)
+  #if EITHER(KNUTWURST_BLTOUCH, KNUTWURST_PROBE)
     #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
   #endif
 
@@ -2171,7 +2175,7 @@
  * probe points will follow. This prevents any change from causing
  * the probe to be unable to reach any points.
  */
-#if ENABLED(KNUTWURST_BLTOUCH)
+#if EITHER(KNUTWURST_BLTOUCH, KNUTWURST_PROBE)
   #if PROBE_SELECTED && !IS_KINEMATIC
     #define PROBING_MARGIN_LEFT  10
     #define PROBING_MARGIN_RIGHT 10
