@@ -43,6 +43,7 @@ jobs:
          - MEGA_TMC_BLT_11
          - MEGA_S
          - MEGA_S_TMC
+         - MEGA_S_TMC_PROBE
          - MEGA_S_BLT_10
          - MEGA_S_BLT_11
          - MEGA_S_TMC_BLT_10
@@ -67,6 +68,7 @@ jobs:
          - MEGA_X_DGUS_TMC_BLT_11
          - MEGA_P_DGUS
          - MEGA_P_DGUS_TMC
+         - MEGA_P_DGUS_TMC_PROBE
          - MEGA_P_DGUS_BLT_10
          - MEGA_P_DGUS_BLT_11
          - MEGA_P_DGUS_TMC_BLT_10
